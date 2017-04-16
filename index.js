@@ -191,10 +191,24 @@ bot.dialog('/actions', [
     }
 ]);
 
-// Create a dialog and bind it to a global action
-bot.dialog('/weather', [
-    function (session, args) {
-        session.endDialog("The weather in %s is 71 degrees and raining.", args.data);
+// Birth control questions
+bot.dialog('/birthControl', [
+    function (session) {
+        builder.Prompts.text(session, 'Birth Control questions will go here');
     }
 ]);
-bot.beginDialogAction('weather', '/weather');   // <-- no 'matches' option means this can only be triggered by a button.
+
+// Emergency contraceptive pills
+
+bot.dialog('/emergencyContraceptive', [
+    function (session) {
+        builder.Prompts.text(session, 'Emergency questions go here');
+    }
+]);
+// Create a dialog and bind it to a global action
+// bot.dialog('/weather', [
+//     function (session, args) {
+//         session.endDialog("The weather in %s is 71 degrees and raining.", args.data);
+//     }
+// ]);
+// bot.beginDialogAction('weather', '/weather');   // <-- no 'matches' option means this can only be triggered by a button.
