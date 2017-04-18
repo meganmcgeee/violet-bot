@@ -25,7 +25,7 @@ const bot = new builder.UniversalBot(connector);
 server.post(`/api/messages`, connector.listen());
 
 // Set the middleware which includes quick replies
-bot.use(quickReplys.QuickRepliesMiddleware);
+bot.use(quickReplies.QuickRepliesMiddleware);
 
 // =========================================================
 // Bots Dialogs
@@ -95,9 +95,11 @@ bot.dialog('/menu', [
         switch (kvPair[1]) {
             case '100':
                 item = "emergency contraception, girl! I have a few quick questions that I need to ask first.";
+                session.beginDialog(`/emergencyContraception`);
                 break;
             case '101':
                 item = "monthly birth control, girl! I have a few quick questions that I need to ask first.";
+                session.beginDialog(`/birthControl`);
                 break;
         }
         session.endDialog('You %s "%s"', action, item);
@@ -105,19 +107,48 @@ bot.dialog('/menu', [
 ]);
 
 
+
+
 // Birth control questions dialog begins
 // =============================================================================
 bot.dialog('/birthControl', [
-    function (session) {
-        builder.Prompts.text(session, 'Birth Control questions will go here');
+    session => {
+    session.send("Okay, first I'm going to check to see if you have any medical conditions that would make it risky to take certain birth control.");
+    builder.Prompts.choice(session, `Did you give birth less than 6 weeks ago?`, `Yes | No | Unsure `);
+  },
+  (session, results) => {
+    switch (results.response.index) {
+      case 0:
+        session.beginDialog(`/isCombination`);
+        break;
+      case 1:
+        session.beginDialog(`/isSmoker`);
+        break;
+      case 2:
+        session.beginDialog(`/unsure`);
+        break;
+      default:
+        session.endDialog();
+        break;
     }
+  },
+  session => {
+      // Reload menu
+    session.replaceDialog(`/menu`);
+  }
 ]);
 
 // Emergency contraceptive pill question 
 // dialog begins
 // =============================================================================
-bot.dialog('/emergencyContraceptive', [
-    function (session) {
+bot.dialog('/emergencyContraception', [
+    session => {
         builder.Prompts.text(session, 'Emergency questions go here');
+    }
+]);
+
+bot.dialog('/isCombination', [
+    session => {
+        builder.Prompts.text(session, 'Combinations pills are the best bet.');
     }
 ]);
