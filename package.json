@@ -6,6 +6,7 @@
   "dependencies": {
     "botbuilder": "^3.7.0",
     "botbuilder-quickreplies": "^1.1.1",
+    "mongodb": "^2.2.26",
     "request": "^2.81.0",
     "request-promise": "^4.2.0",
     "restify": "^4.3.0"
