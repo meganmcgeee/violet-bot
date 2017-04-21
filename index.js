@@ -58,16 +58,6 @@ bot.dialog('/menu', [
             .attachmentLayout(builder.AttachmentLayout.carousel)
             .attachments([
                 new builder.HeroCard(session)
-                    .title("Emergency Contraceptives")
-                    .subtitle("Sometimes the condom breaks, maybe you just didn't plan. It's totally normal, girl. I'll help you.")
-                    .images([
-                        builder.CardImage.create(session, "http://www.medimanage.com/Images/brk%20glass%20EC.jpg")
-                            .tap(builder.CardAction.showImage(session, "http://www.medimanage.com/Images/brk%20glass%20EC.jpg")),
-                    ])
-                    .buttons([
-                        builder.CardAction.imBack(session, "select:100", "Select Emergency Contrapceptives/ Plan B")
-                    ]),
-                new builder.HeroCard(session)
                     .title("Monthly Birth Control")
                     .subtitle("Enjoy your body, your youth and your freedom. No need to sweat over whether or not you'll have to put your life on hold.")
                     .images([
@@ -76,6 +66,16 @@ bot.dialog('/menu', [
                     ])
                     .buttons([
                         builder.CardAction.imBack(session, "select:101", "Select Monthly Birth Control or 'The Pill'")
+                    ]),
+                new builder.HeroCard(session)
+                    .title("Emergency Contraceptives")
+                    .subtitle("Sometimes the condom breaks, maybe you just didn't plan. It's totally normal, girl. I'll help you.")
+                    .images([
+                        builder.CardImage.create(session, "http://www.medimanage.com/Images/brk%20glass%20EC.jpg")
+                            .tap(builder.CardAction.showImage(session, "http://www.medimanage.com/Images/brk%20glass%20EC.jpg")),
+                    ])
+                    .buttons([
+                        builder.CardAction.imBack(session, "select:100", "Select Emergency Contrapceptives/ Plan B")
                     ])
             ]);
         builder.Prompts.choice(session, msg, "select:100|select:101");
@@ -94,12 +94,12 @@ bot.dialog('/menu', [
         }
         switch (kvPair[1]) {
             case '100':
-                item = "emergency contraception, girl! I have a few quick questions that I need to ask first.";
+                item = 'emergency contraception, girl! I have a few quick questions that I need to ask first.';
                 session.beginDialog(`/emergencyContraception`);
                 break;
             case '101':
-                item = "monthly birth control, girl! I have a few quick questions that I need to ask first.";
-                session.beginDialog(`/birthControl`);
+                item = 'monthly birth control, girl! I have a few quick questions that I need to ask first.';
+                session.beginDialog(`/recentBirth`);
                 break;
         }
         session.endDialog('You %s "%s"', action, item);
@@ -110,8 +110,9 @@ bot.dialog('/menu', [
 
 
 // Birth control questions dialog begins
+// Recent Birth
 // =============================================================================
-bot.dialog('/birthControl', [
+bot.dialog('/recentBirth', [
     session => {
     session.send("Okay, first I'm going to check to see if you have any medical conditions that would make it risky to take certain birth control.");
     builder.Prompts.choice(session, `Did you give birth less than 6 weeks ago?`, `Yes | No | Unsure `);
@@ -138,6 +139,10 @@ bot.dialog('/birthControl', [
   }
 ]);
 
+
+
+
+
 // Emergency contraceptive pill question 
 // dialog begins
 // =============================================================================
@@ -147,8 +152,42 @@ bot.dialog('/emergencyContraception', [
     }
 ]);
 
+// Combination pills
 bot.dialog('/isCombination', [
     session => {
         builder.Prompts.text(session, 'Combinations pills are the best bet.');
     }
 ]);
+// Progestin Pills
+bot.dialog('/isProgestin', [
+    session => {
+        builder.Prompts.text(session, 'Progestin pills are the best bet.');
+    }
+]);
+
+// bot.dialog('/recentBirth', [
+//     session => {
+//     session.send("Okay, first I'm going to check to see if you have any medical conditions that would make it risky to take certain birth control.");
+//     builder.Prompts.choice(session, `Did you give birth less than 6 weeks ago?`, `Yes | No | Unsure `);
+//   },
+//   (session, results) => {
+//     switch (results.response.index) {
+//       case 0:
+//         session.beginDialog(`/isCombination`);
+//         break;
+//       case 1:
+//         session.beginDialog(`/isSmoker`);
+//         break;
+//       case 2:
+//         session.beginDialog(`/unsure`);
+//         break;
+//       default:
+//         session.endDialog();
+//         break;
+//     }
+//   },
+//   session => {
+//       // Reload menu
+//     session.replaceDialog(`/menu`);
+//   }
+// ]);
