@@ -1,9 +1,12 @@
+const bot = require(`../bot`);
+const builder = require(`botbuilder`);
+
 // Pre-existing condition
-export default [
-  bot.dialog('/preexistingCondition', [
+module.exports = [
+  bot.dialog(`/preexistingCondition`, [
       session => {
-          builder.Prompts.text(session, 'From what you have answered, it sounds like you have a pre-existing condition or are on medication that interacts with oral contraceptive.');
-          builder.Prompts.text(session, 'You should speak to a medical professional to find out what your options are.');
+          builder.Prompts.text(session, `From what you have answered, it sounds like you have a pre-existing condition or are on medication that interacts with oral contraceptive.`);
+          builder.Prompts.text(session, `You should speak to a medical professional to find out what your options are.`);
           builder.Prompts.choice(session, `You can schedule an appointment with an OB/GYN online at HealthTap, or check to see if there's a doctor near you that takes your insurance.?`, `Yes | No | Unsure `);
     },
     (session, results) => {
@@ -25,6 +28,6 @@ export default [
     session => {
         // Reload menu
       session.replaceDialog(`/menu`);
-    }
-  ])
+    },
+  ]),
 ];

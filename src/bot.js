@@ -1,21 +1,18 @@
 const restify = require(`restify`);
-const mongoose = require('mongoose');
+const mongoose = require(`mongoose`);
 const builder = require(`botbuilder`);
 // Quick replies
-const quickReplies = require('botbuilder-quickreplies');
-// Include Promises Library
-const rp = require('request-promise');
-const dialogs = require('./dialogs');
+const quickReplies = require(`botbuilder-quickreplies`);
 
-//=========================================================
+// =========================================================
 // MongoDB Setup
-//=========================================================
+// =========================================================
 
-mongoose.connect(process.env.MONGO_URI || config.MONGO_URI, err => {
+mongoose.connect(process.env.MONGO_URI, err => {
     if (err) {
         return console.error(err);
     }
-    console.log("Connected to MongoDB");
+    return console.log(`Connected to MongoDB`);
 });
 
 // =========================================================
@@ -38,3 +35,5 @@ server.post(`/api/messages`, connector.listen());
 
 // Set the middleware which includes quick replies
 bot.use(quickReplies.QuickRepliesMiddleware);
+
+module.exports = bot;
