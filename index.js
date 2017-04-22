@@ -141,7 +141,32 @@ bot.dialog('/recentBirth', [
 ]);
 
 
-
+// Is a smoker?
+bot.dialog('/isSmoker', [
+    session => {
+    builder.Prompts.choice(session, `Are you over the age of 35 and a heavy smoker (more than 15 cigarettes per day)?`, `Yes | No | Unsure `);
+  },
+  (session, results) => {
+    switch (results.response.index) {
+      case 0:
+        session.beginDialog(`/preexistingCondition`);
+        break;
+      case 1:
+        session.beginDialog(`/hasHypertension`);
+        break;
+      case 2:
+        session.beginDialog(`/unsure`);
+        break;
+      default:
+        session.endDialog();
+        break;
+    }
+  },
+  session => {
+      // Reload menu
+    session.replaceDialog(`/menu`);
+  }
+]);
 
 
 // Emergency contraceptive pill question 
@@ -153,12 +178,51 @@ bot.dialog('/emergencyContraception', [
     }
 ]);
 
+// Pre-existing condition
+bot.dialog('/preexistingCondition', [
+    session => {
+        builder.Prompts.text(session, 'From what you have answered, it sounds like you have a pre-existing condition or are on medication that interacts with oral contraceptive.');
+        builder.Prompts.text(session, 'You should speak to a medical professional to find out what your options are.');
+        builder.Prompts.choice(session, `You can schedule an appointment with an OB/GYN online at HealthTap, or check to see if there's a doctor near you that takes your insurance.?`, `Yes | No | Unsure `);
+  },
+  (session, results) => {
+    switch (results.response.index) {
+      case 0:
+        session.beginDialog(`/telehealth`);
+        break;
+      case 1:
+        session.beginDialog(`/docNearMe`);
+        break;
+      case 2:
+        session.beginDialog(`/end`);
+        break;
+      default:
+        session.endDialog();
+        break;
+    }
+},
+  session => {
+      // Reload menu
+    session.replaceDialog(`/menu`);
+  }
+]);
+
+
+
 // Combination pills
 bot.dialog('/isCombination', [
     session => {
         builder.Prompts.text(session, 'Combinations pills are the best bet.');
     }
 ]);
+
+// Progestin Pills
+bot.dialog('/isProgestin', [
+    session => {
+        builder.Prompts.text(session, 'Progestin pills are the best bet.');
+    }
+]);
+
 
 // I'm looking to load pills from a mongo database with info to hero cards. This code is something I found that accomplishess this using the Bing API- pulls articles based on used input
 // This code is from NodeNewsBot and currently accepts a user input and sends it to the bing search engine.
@@ -233,12 +297,3 @@ bot.dialog('/isCombination', [
 //        .attachments(cards);
 //    session.send(msg);
 // }
-
-// Progestin Pills
-bot.dialog('/isProgestin', [
-    session => {
-        builder.Prompts.text(session, 'Progestin pills are the best bet.');
-    }
-]);
-
-
