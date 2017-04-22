@@ -158,6 +158,78 @@ bot.dialog('/isCombination', [
         builder.Prompts.text(session, 'Combinations pills are the best bet.');
     }
 ]);
+
+// I'm looking to load pills from a mongo database with info to hero cards. This code is something I found that accomplishess this using the Bing API- pulls articles based on used input
+
+// bot.dialog('/searchPills', [
+//     function (session){
+//         // Ask them to enter a topic they want news about
+//         builder.Prompts.text(session, prompts.promptSearchPills);
+//     }, function (session, results, next){
+//         if (results.response && results.response !== 'quit') {
+//             session.sendTyping();
+//             var numResults = 10;
+//             var url = "https://api.cognitive.microsoft.com/bing/v5.0/news/search?q="
+//             + results.response + "&count=" + numResults + "&mkt=" + market + "&originalImg=true";
+//             //Options for the request
+//             var options = {
+//                 uri: url,
+//                 headers: {
+//                     'Ocp-Apim-Subscription-Key': BINGNEWSKEY
+//                 },
+//                 json: true
+//             }
+//             //Make the request
+//             rp(options).then(function (body){
+//                 sendSearchNewsResults(session, results, body);
+//             }).catch(function (err){
+//                 console.log(err.message);  
+//                 session.send(prompts.msgError);
+//             }).finally(function () {
+//                 session.endDialog();
+//             });
+//         } else {
+//             session.endDialog(prompts.msgCancel);
+//         }
+//     }
+// ]);
+
+// function sendPillsResults(session, results, body){
+//    session.sendTyping();
+//    let allPills = body.value;
+//    let cards = [];
+//    // Some searches don’t return 10, so make the upper limit the number of returned articles
+//    for (let i = 0; i < allPills.length; i++){
+//        let pill = allPills[i];
+//        let cardImg;
+//        if (pill.image) {
+//            cardImg = pill.image.contentUrl;
+//        } else {
+//            // If there’s no image provided with the pill
+//            //http://imgur.com/a/vl59A
+//            cardImg = “http://i.imgur.com/7kYV6y5.jpg”; (79KB)
+
+
+//        }
+//        // Create a card for the article
+//        cards.push(new builder.HeroCard(session)
+//            .title(pill.name)
+//            .subtitle(pill.datePublished)
+//            .images([
+//                builder.CardImage.create(session, cardImg)
+//            ])
+//            .buttons([
+//                builder.CardAction.dialogAction(session, “moredetails”, pill.description, “Short snippet”),
+//                builder.CardAction.openUrl(session, pill.url, “Full description)
+//            ]));
+//    }
+//    let msg = new builder.Message(session)
+//        .textFormat(builder.TextFormat.xml)
+//        .attachmentLayout(builder.AttachmentLayout.carousel)
+//        .attachments(cards);
+//    session.send(msg);
+// }
+
 // Progestin Pills
 bot.dialog('/isProgestin', [
     session => {
@@ -165,29 +237,4 @@ bot.dialog('/isProgestin', [
     }
 ]);
 
-// bot.dialog('/recentBirth', [
-//     session => {
-//     session.send("Okay, first I'm going to check to see if you have any medical conditions that would make it risky to take certain birth control.");
-//     builder.Prompts.choice(session, `Did you give birth less than 6 weeks ago?`, `Yes | No | Unsure `);
-//   },
-//   (session, results) => {
-//     switch (results.response.index) {
-//       case 0:
-//         session.beginDialog(`/isCombination`);
-//         break;
-//       case 1:
-//         session.beginDialog(`/isSmoker`);
-//         break;
-//       case 2:
-//         session.beginDialog(`/unsure`);
-//         break;
-//       default:
-//         session.endDialog();
-//         break;
-//     }
-//   },
-//   session => {
-//       // Reload menu
-//     session.replaceDialog(`/menu`);
-//   }
-// ]);
+
