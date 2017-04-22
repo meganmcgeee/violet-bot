@@ -95,14 +95,15 @@ bot.dialog('/menu', [
         switch (kvPair[1]) {
             case '100':
                 item = 'emergency contraception, girl! I have a few quick questions that I need to ask first.';
+                session.endDialog('You %s "%s"', action, item);
                 session.beginDialog(`/emergencyContraception`);
                 break;
             case '101':
                 item = 'monthly birth control, girl! I have a few quick questions that I need to ask first.';
+                session.endDialog('You %s "%s"', action, item);
                 session.beginDialog(`/recentBirth`);
                 break;
         }
-        session.endDialog('You %s "%s"', action, item);
     }
 ]);
 
@@ -160,6 +161,9 @@ bot.dialog('/isCombination', [
 ]);
 
 // I'm looking to load pills from a mongo database with info to hero cards. This code is something I found that accomplishess this using the Bing API- pulls articles based on used input
+// This code is from NodeNewsBot and currently accepts a user input and sends it to the bing search engine.
+
+// It needs to be recreated so that it hits the Airtable API and returns results based on the 
 
 // bot.dialog('/searchPills', [
 //     function (session){
