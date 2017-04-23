@@ -2,18 +2,18 @@ const builder = require(`botbuilder`);
 
 module.exports = [
   session => {
-    builder.Prompts.choice(session, `Do you currently have breast cancer, a liver tumor, cirrhosis, or gallbladder trouble?`, `Yes | No | Unsure `);
+    builder.Prompts.choice(session, `How frequently do you have your period?`, `Monthly | Yearly | Never`);
   },
   (session, results) => {
     switch (results.response.index) {
       case 0:
-        session.beginDialog(`/preexistingCondition`);
+        session.beginDialog(`/periodFrequency`);
         break;
       case 1:
-        session.beginDialog(`/rxInteraction`);
+        session.beginDialog(`/periodFrequency`);
         break;
       case 2:
-        session.beginDialog(`/unsure`);
+        session.beginDialog(`/periodFrequency`);
         break;
       default:
         session.endDialog();
