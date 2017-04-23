@@ -25,7 +25,7 @@ bot.dialog(`/menu`, menu).reloadAction(...reloadMenu);
 bot.dialog(`/emergencyContraception`, emergencyContraception);
 
 // Birth control pill questions
-bot.dialog(`/preExistingCondition`, preExistingCondition).reloadAction(...reloadMenu);
+bot.dialog(`/preExistingCondition`, preExistingCondition);
 bot.dialog(`/recentBirth`, recentBirth);
 bot.dialog(`/isSmoker`, isSmoker);
 bot.dialog(`/hasHypertension`, hasHypertension);

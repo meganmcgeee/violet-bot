@@ -2,7 +2,7 @@ const builder = require(`botbuilder`);
 
 module.exports = [
   session => {
-    builder.Prompts.text(session, `I'm going to check to see if you are taking any medications that could interact with birth control.`);
+    session.send(`I'm going to check to see if you are taking any medications that could interact with birth control.`);
     builder.Prompts.choice(session, `Are you taking any seizure medications, St. John's Wort, HIV medications, or Rifampin (treatment for Tuberculosis)?`, `Yes | No | Unsure `);
   },
   (session, results) => {
