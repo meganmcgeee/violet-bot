@@ -2,8 +2,7 @@ const builder = require(`botbuilder`);
 
 module.exports = [
   session => {
-    builder.Prompts.choice(session, `
-How would you describe your periods?`, `Light | Regular | Heavy | Clots | Irregular | Painful `);
+    builder.Prompts.choice(session, `How would you describe your periods?`, `Light | Regular | Heavy | Clots | Irregular | Painful `);
   },
   (session, results) => {
     switch (results.response.index) {
