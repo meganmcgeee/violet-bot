@@ -10,7 +10,7 @@ module.exports = [
         session.beginDialog(`/preexistingCondition`);
         break;
       case 1:
-        session.beginDialog(`/liverGallbladderConditions`);
+        session.beginDialog(`/unsure`);
         break;
       case 2:
         session.beginDialog(`/unsure`);
