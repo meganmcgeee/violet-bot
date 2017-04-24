@@ -8,22 +8,22 @@ How would you describe your periods?`, `Light | Regular | Heavy | Clots | Irregu
   (session, results) => {
     switch (results.response.index) {
       case 0:
-        session.beginDialog(`/periodFrequency`);
+        session.beginDialog(`/isProgestin`);
         break;
       case 1:
-        session.beginDialog(`/periodFrequency`);
+        session.beginDialog(`/isProgestin`);
         break;
       case 2:
-        session.beginDialog(`/periodFrequency`);
+        session.beginDialog(`/isCombination`);
         break;
       case 3:
-        session.beginDialog(`/periodFrequency`);
+        session.beginDialog(`/isCombination`);
         break;
       case 4:
-        session.beginDialog(`/periodFrequency`);
+        session.beginDialog(`/isCombination`);
         break;
       case 5:
-        session.beginDialog(`/periodFrequency`);
+        session.beginDialog(`/isCombination`);
         break;
       default:
         session.endDialog();

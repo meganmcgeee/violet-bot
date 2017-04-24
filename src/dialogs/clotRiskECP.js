@@ -2,13 +2,12 @@ const builder = require(`botbuilder`);
 
 module.exports = [
   session => {
-    session.send(`Okay, first I'm going to check to see if you have any medical conditions that would make it risky to take emergency contraceptives.`);
-    builder.Prompts.choice(session, `Did you give birth less than 6 weeks ago?`, `Yes | No | Unsure `);
+    builder.Prompts.choice(session, `Do you have history of leg or lung clots, heart blockages, or stroke heart valve or rhythm  problems such as a murmur?`, `Yes | No | Unsure `);
   },
   (session, results) => {
     switch (results.response.index) {
       case 0:
-        session.beginDialog(`/preExistingCondition`);
+        session.beginDialog(`/preexistingCondition`);
         break;
       case 1:
         session.beginDialog(`/clotRiskECP`);
@@ -20,5 +19,9 @@ module.exports = [
         session.endDialog();
         break;
     }
+  },
+  session => {
+    // Reload menu
+    session.replaceDialog(`/menu`);
   },
 ];

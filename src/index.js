@@ -1,6 +1,8 @@
 const bot = require(`./bot`);
 const clotRisk = require(`./dialogs/clotRisk`);
+const clotRiskECP = require(`./dialogs/clotRiskECP`);
 const emergencyContraception = require(`./dialogs/emergencyContraception`);
+const liverGallbladderConditions = `./dialogs/liverGallbladderConditions`;
 const hasHypertension = require(`./dialogs/hasHypertension`);
 const introduction = require(`./dialogs/introduction`);
 const isCombination = require(`./dialogs/isCombination`);
@@ -23,6 +25,8 @@ bot.dialog(`/menu`, menu).reloadAction(...reloadMenu);
 
 // Emergency contraceptive pill questions
 bot.dialog(`/emergencyContraception`, emergencyContraception);
+bot.dialog(`/clotRiskECP`, clotRiskECP);
+bot.dialog(`/liverGallbladderConditions`, liverGallbladderConditions);
 
 // Birth control pill questions
 bot.dialog(`/preExistingCondition`, preExistingCondition);
