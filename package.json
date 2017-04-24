@@ -5,7 +5,6 @@
   "main": "index.js",
   "dependencies": {
     "botbuilder": "^3.7.0",
-    "botbuilder-quickreplies": "^1.1.1",
     "mongodb": "^2.2.26",
     "mongoose": "^4.9.5",
     "request": "^2.81.0",
