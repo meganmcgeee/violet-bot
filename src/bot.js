@@ -1,29 +1,8 @@
 const restify = require(`restify`);
-const mongoose = require(`mongoose`);
-// Set up default mongoose connection
-const mongoDB = `mongodb://127.0.0.1/violet`;
 const builder = require(`botbuilder`);
 
 // Quick replies
 const quickReplies = require(`botbuilder-quickreplies`);
-
-// =========================================================
-// MongoDB Setup
-// =========================================================
-
-mongoose.connect(mongoDB);
-
-const db = mongoose.connection;
-
-// Bind connection to error event (to get notification of connection errors)
-db.on(`error`, console.error.bind(console, `MongoDB connection error:`));
-
-// Mongoose.connect(process.env.MONGO_URI, err => {
-//     If (err) {
-//         Return console.error(err);
-//     }
-//     Return console.log(`Connected to MongoDB`);
-// });
 
 // =========================================================
 // Bot Setup
