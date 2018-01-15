@@ -1,14 +1,50 @@
-import bcQuestions from './dialogs/bcQuestions';
-import bot from './bot';
-import menu from './dialogs/menu';
-import preExistingCondition from './dialogs/preExistingCondition';
-
-applyMiddleware(bot);
+const bot = require(`./bot`);
+const clotRisk = require(`./dialogs/clotRisk`);
+const clotRiskECP = require(`./dialogs/clotRiskECP`);
+const emergencyContraception = require(`./dialogs/emergencyContraception`);
+const liverGallbladderConditions = require(`./dialogs/liverGallbladderConditions`);
+const hasHypertension = require(`./dialogs/hasHypertension`);
+const introduction = require(`./dialogs/introduction`);
+const isCombination = require(`./dialogs/isCombination`);
+const isProgestin = require(`./dialogs/isProgestin`);
+const isSmoker = require(`./dialogs/isSmoker`);
+const rxInteraction = require(`./dialogs/rxInteraction`);
+const periodQuality = require(`./dialogs/periodQuality`);
+const periodFrequency = require(`./dialogs/periodFrequency`);
+const menu = require(`./dialogs/menu`);
+const migraines = require(`./dialogs/migraines`);
+const preExistingCondition = require(`./dialogs/preExistingCondition`);
+const recentBirth = require(`./dialogs/recentBirth`);
+const systemConditions = require(`./dialogs/systemConditions`);
 
 const reloadMenu =
   [`showMenu`, null, { matches: /^(menu|back)/i }];
 
-bot.dialog(`/`, introductionDialog);
-bot.dialog(`/menu`, menuDialog).reloadAction(...reloadMenu);
-bot.dialog(`/bcQuestions`, bcQuestionsDialog).reloadAction(...reloadMenu);
-bot.dialog(`/preExistingCondition`, preExsitingConditionDialog).reloadAction(...reloadMenu);
+bot.dialog(`/`, introduction);
+bot.dialog(`/menu`, menu).reloadAction(...reloadMenu);
+
+// Emergency contraceptive pill questions
+bot.dialog(`/emergencyContraception`, emergencyContraception);
+bot.dialog(`/clotRiskECP`, clotRiskECP);
+bot.dialog(`/liverGallbladderConditions`, liverGallbladderConditions);
+
+// Birth control pill questions
+bot.dialog(`/preExistingCondition`, preExistingCondition);
+bot.dialog(`/recentBirth`, recentBirth);
+bot.dialog(`/isSmoker`, isSmoker);
+bot.dialog(`/hasHypertension`, hasHypertension);
+bot.dialog(`/clotRisk`, clotRisk);
+bot.dialog(`/migraines`, migraines);
+bot.dialog(`/systemConditions`, systemConditions);
+bot.dialog(`/rxInteraction`, rxInteraction);
+bot.dialog(`/periodQuality`, periodQuality);
+bot.dialog(`/periodFrequency`, periodFrequency);
+
+
+// Combination pills suggestion
+bot.dialog(`/isCombination`, isCombination);
+
+// Progestin Pills suggestion
+bot.dialog(`/isProgestin`, isProgestin);
+
+
